@@ -5,94 +5,44 @@
  * @format
  */
 
-import React from 'react';
-import {View, Text, StyleSheet} from "react-native";
-import type {PropsWithChildren} from 'react';
+import React, {useState} from 'react';
+import {View, StyleSheet, FlatList} from "react-native";
 import Header from './components/Header';
-
-import {
-  Colors,
-  DebugInstructions,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+import ListItem from './components/ListItem';
+import AddItem from './components/AddItem';
 
 const App = () => {
-  return <View style={styles.container}>
-    <Header/>
-    </View>;
-}
+  const [items, setItems] = useState([
+    {id: 1, text: 'Milk'},
+    {id: 2, text: 'Eggs'},
+    {id: 3, text: 'Bread'},
+    {id: 4, text: 'Juice'},
+  ]);
 
-// function Section({children, title}: SectionProps): React.JSX.Element {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// }
+  const deleteItem = (id: number) => {
+    setItems(prevItems => {
+      return prevItems.filter(item => item.id != id);
+    });
+  }
 
-// function App(): React.JSX.Element {
-//   const isDarkMode = useColorScheme() === 'dark';
+  const addItem = (text: string) => {
+    setItems(prevItems => {
+      return [{id: 5, text}, ...prevItems];
+    });
+  }
 
-//   const backgroundStyle = {
-//     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-//   };
-
-//   return (
-//     <SafeAreaView style={backgroundStyle}>
-//       <StatusBar
-//         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-//         backgroundColor={backgroundStyle.backgroundColor}
-//       />
-//       <ScrollView
-//         contentInsetAdjustmentBehavior="automatic"
-//         style={backgroundStyle}>
-//         <Header />
-//         <View
-//           style={{
-//             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-//           }}>
-//           <Section title="Hello World!">
-//             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-//             screen and then come back to see your edits.
-//           </Section>
-//           <Section title="See Your Changes">
-//             <ReloadInstructions />
-//           </Section>
-//           <Section title="Debug">
-//             <DebugInstructions />
-//           </Section>
-//           <Section title="Learn More">
-//             Read the docs to discover what to do next:
-//           </Section>
-//           <LearnMoreLinks />
-//         </View>
-//       </ScrollView>
-//     </SafeAreaView>
-//   );
-// }
+  return (
+    <View style={styles.container}>
+      <Header/>
+      <AddItem 
+      addItem={addItem}/>
+      <FlatList
+       data={items}
+        renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem}/>}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
