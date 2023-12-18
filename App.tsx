@@ -6,22 +6,13 @@
  */
 
 import React from 'react';
+import {View, Text, StyleSheet} from "react-native";
 import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  Image,
-  useColorScheme,
-  View,
-} from 'react-native';
+import Header from './components/Header';
 
 import {
   Colors,
   DebugInstructions,
-  Header,
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
@@ -32,8 +23,7 @@ type SectionProps = PropsWithChildren<{
 
 const App = () => {
   return <View style={styles.container}>
-    <Text style={styles.text}>Hello world!</Text>
-    <Image source={{uri:'https://randomuser.me/api/portraits/men/1.jpg'}} style={styles.img}/>
+    <Header/>
     </View>;
 }
 
@@ -107,17 +97,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
-    justifyContent: 'center', 
-    alignItems:'center'
-  },
-  text: {
-    color: 'darkslateblue', 
-    fontSize: 30
-  },
-  img: {
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
+    paddingTop: 60,
   },
 });
 
